@@ -1,0 +1,7 @@
+<form [formGroup]="forma">
+    <mat-form-field>
+        <input matInput placeholder="New Title" value="{{data.title}}" formControlName="title">
+    </mat-form-field>
+
+    <button (click)="saveTitle()" mat-raised-button color="primary" style="float: right">Save</button>
+</form>

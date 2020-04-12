@@ -1,0 +1,36 @@
+<h2>Questionnaires Store</h2>
+<hr>
+
+<div mat-dialog-content>
+    <div class="text-center" *ngIf="storeQuestionnaires.length == 0; else testsList">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <ng-template #testsList>
+        <input class="form-control mr-2 mt-1" type="text" placeholder="Search questionnaire.." aria-label="Search" (keyup)="searchQuestionnaire(search.value)" #search>
+        <hr>
+        <div class="limit-tab">
+            <div class="row">
+                <div class="col-11">
+                    <div class="ml-2 list-group-item list-group-item-action row" *ngFor="let created of questionnaireFilter">
+                        <div class="col">
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{created.questionnaireId}}</h5>
+                            </div>
+                            <button mat-stroked-button color="primary" class="mr-2" style="float: right" (click)="detailsQuestionnaire(created)">View Details</button>
+                            <button mat-raised-button color="primary" class="mr-2" style="float: right" (click)="addQuestionnaire(created)">Add To Your Content</button>
+                            <p class="mb-1">{{created.questions.length}} question(s)</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>
+
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-stroked-button color="warn" class="mr-2" (click)="onNoClick()" cdkFocusInitial>CLOSE</button>
+</div>

@@ -1,0 +1,105 @@
+<h2 mat-dialog-title>New Question</h2>
+<hr>
+<div mat-dialog-content>
+    <div *ngIf="data === 1">
+        <mat-form-field style="width: 300px;">
+            <mat-label>Select type of the question</mat-label>
+            <mat-select [(value)]="selectedType">
+                <mat-option *ngFor="let type of typesQuestions" [value]="type" (click)="loadFormType()">
+                    {{type.type}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <hr>
+    </div>
+    <div *ngIf="data != 1">
+
+        <form [formGroup]="newQuestionForm">
+            <div class="form-row">
+                <div class="form-group col-8">
+                    <label for="title">Title of the question</label>
+                    <input type="text" class="form-control" name="title" placeholder="How old are you?" formControlName="title" [ngClass]="{ 'is-invalid': newQuestionForm.controls.title.errors, 'is-valid': !newQuestionForm.controls.title.errors}">
+                </div>
+                <div class="form-group col-4">
+                    <label for="questionId">Id of your question</label>
+                    <input type="text" class="form-control" name="question-age-01" placeholder="test-05" formControlName="questionId" [ngClass]="{ 'is-invalid': newQuestionForm.controls.questionId.errors, 'is-valid': !newQuestionForm.controls.questionId.errors}">
+    
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="hint">Hint for users</label>
+                <input type="text" class="form-control" name="hint" placeholder="Answer your age in number" formControlName="hint">
+            </div>
+            <div class="form-group" *ngIf="isOptions">
+                <label for="options">Options for your question</label>
+                <div class="form-row">
+                    <div class="col-9">
+    
+                        <!-- <input type="text" class="form-control" name="options" formControlName="options"> -->
+                        <div formArrayName="options" *ngFor="let option of getOptions.controls; let i=index">
+                            <div class="row">
+                                <div class="col-9">
+    
+                                    <input type="text" class="form-control mb-1" [formControlName]="i">
+                                </div>
+                                <div class="col-3">
+    
+                                    <button type="button" class="btn btn-sm btn-danger" (click)="deleteOption(i)">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+    
+                        <button type="button" mat-stroked-button color="primary" (click)="addOption()">Add option</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isRating">
+                <label for="maxStars">Rating max limit (stars)</label>
+                <input type="number" class="form-control" name="maxStars" formControlName="maxStars" [ngClass]="{ 'is-invalid': newQuestionForm.controls.maxStars.errors, 'is-valid': !newQuestionForm.controls.maxStars.errors}">
+                <div *ngIf="newQuestionForm.controls.maxStars.errors" class="invalid-feedback">
+                    <div *ngIf="newQuestionForm.controls.maxStars.errors.required">Rating stars is required</div>
+                    <div *ngIf="newQuestionForm.controls.maxStars.errors.min">Rating stars minimum is 3</div>
+                </div>
+            </div>
+            <div *ngIf="isScale">
+                <div class="form-row">
+    
+                    <div class="form-group col">
+                        <label for="min">Scale lower limit</label>
+                        <input type="number" class="form-control" name="min" formControlName="min" [ngClass]="{ 'is-invalid': !scaleCheck(), 'is-valid': scaleCheck()}">
+                    </div>
+                    <div class="form-group col">
+                        <label for="max">Scale max limit</label>
+                        <input type="number" class="form-control" name="max" formControlName="max" [ngClass]="{ 'is-invalid': !scaleCheck(), 'is-valid': scaleCheck()}">
+                    </div>
+                    <div class="form-group col">
+                        <label for="step">Scale step</label>
+                        <input type="number" class="form-control" name="step" formControlName="step" [ngClass]="{ 'is-invalid': !stepCheck(), 'is-valid': stepCheck()}">
+                    </div>
+                </div>
+                <div class="form-row">
+    
+                    <div class="form-group col">
+                        <label for="minLabel">Lower limit label</label>
+                        <input type="text" class="form-control" name="minLabel" placeholder="Worst" formControlName="minLabel" [ngClass]="{ 'is-invalid': newQuestionForm.controls.minLabel.errors, 'is-valid': !newQuestionForm.controls.minLabel.errors}">
+                    </div>
+                    <div class="form-group col">
+                        <label for="maxLabel">Max label limit</label>
+                        <input type="text" class="form-control" name="maxLabel" placeholder="Best" formControlName="maxLabel" [ngClass]="{ 'is-invalid': newQuestionForm.controls.maxLabel.errors, 'is-valid': !newQuestionForm.controls.maxLabel.errors}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="required" formControlName="required">
+                <label for="required" class="form-check-label">Required</label>
+            </div>
+    
+        </form>
+    </div>
+</div>
+                <div mat-dialog-actions align="end" *ngIf="data!=1">
+                    <button mat-button color="warn" class="mr-2" (click)="onNoClick()" cdkFocusInitial>CANCEL</button>
+                    <button mat-raised-button color="primary" (click)="save()" [ngClass]="{'disabled': !newQuestionForm.valid}">SAVE</button>
+                </div>

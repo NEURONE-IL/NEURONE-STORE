@@ -1,0 +1,210 @@
+<div class="row">
+    <div class="col">
+        <h1>Study Manager</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+
+        <div>
+            <b>Study Flows</b> are the main component of NEURONE simulation. They are built on top of assets (defined on <b>Content Creator</b>), questionnaires (defined on <b>Form Builder</b>) and Documents (defined on <b>Document Manager</b>).
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="row ml-3">
+    <div class="col">
+
+        <button mat-stroked-button color="primary" class="mr-3" (click)="newStage()">NEW STAGE</button>
+        <button mat-stroked-button color="primary" class="mr-3" (click)="openRepository()">REPOSITORY</button>
+        <button mat-stroked-button color="primary" (click)="openStore()">NEURONE STORE</button>
+    </div>
+</div>
+
+<hr>
+
+<div class="mt-3">
+    <div class="row fast fadeIn">
+        <div class="col">
+            <div class="jumbotron">
+
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                    <div class="col-lg">
+                        <h1>{{studyForm.get('id').value}}</h1>
+                    </div>
+                    <div class="col">
+
+                        <button class="btn btn-info d-flex justify-content-center" type="button" style="float: left" (click)="editTitle(studyForm.get('id').value)">Edit</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group col form-check">
+                    <input type="checkbox" class="form-check-input" id="advanced" [(ngModel)]="advancedMode" [checked]="advancedMode">
+                    <label for="advanced" class="form-check-label">Advanced Mode</label>
+                </div>
+                <form [formGroup]="studyForm" (ngSubmit)="submitStudy()">
+                    <hr>
+                    <div class="row">
+                        <div class="col-2">
+                            <button mat-stroked-button type="button" (click)="makePublic()" *ngIf="!studyForm.get('public').value">PUBLIC</button>
+                            <button mat-stroked-button color="warn" type="button" (click)="cancelPublic()" *ngIf="studyForm.get('public').value">CANCEL</button>
+                        </div>
+                        <div class="form-group col">
+
+                            <tag-input *ngIf="studyForm.get('public').value" formControlName='tags' [secondaryPlaceholder]="'Press Enter for a new tag'"></tag-input>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="avatar">Avatar Name</label>
+                            <input type="text" class="form-control" name="avatar" placeholder="Sarah" formControlName="avatar" [ngClass]="{ 'is-invalid': studyForm.controls.avatar.errors, 'is-valid': !studyForm.controls.avatar.errors}">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Flow Language (Locale File)</label>
+                            <select formControlName="locale" class="form-control" [ngClass]="{ 'is-invalid': studyForm.controls.locale.errors, 'is-valid': !studyForm.controls.locale.errors }">
+                                <option value="" disabled>Choose a language</option>
+                                <option *ngFor="let local of myLocales" [ngValue]="local">{{local.name}} ({{local.code}})</option>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Flow Domain</label>
+                            <select formControlName="domain" class="form-control" [ngClass]="{ 'is-invalid': studyForm.controls.domain.errors, 'is-valid': !studyForm.controls.domain.errors }">
+                                <option value="" disabled>Choose a domain</option>
+                                <option *ngFor="let domain of myDomains" [ngValue]="domain">{{domain.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Flow Task</label>
+                            <select formControlName="task" class="form-control" [ngClass]="{ 'is-invalid': studyForm.controls.task.errors, 'is-valid': !studyForm.controls.task.errors }">
+                                <option value="" disabled>Choose a task</option>
+                                <option *ngFor="let tsk of myTasks" [ngValue]="tsk">{{tsk.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Flow Default Modal</label>
+                            <select formControlName="taskPage" class="form-control" [ngClass]="{ 'is-invalid': studyForm.controls.taskPage.errors, 'is-valid': !studyForm.controls.taskPage.errors }">
+                                <option value="" disabled>Choose a modal</option>
+                                <option *ngFor="let modal of myModals" [ngValue]="modal">{{modal}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row" *ngIf="advancedMode">
+                        <div class="form-group col">
+                            <label for="">Minimum Required Bookmarks</label>
+                            <input type="number" class="form-control" formControlName="minBookmarks" [ngClass]="{ 'is-invalid': studyForm.controls.minBookmarks.errors, 'is-valid': !studyForm.controls.minBookmarks.errors }">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Maximum Required Bookmarks</label>
+                            <input type="number" class="form-control" formControlName="maxBookmarks" [ngClass]="{ 'is-invalid': studyForm.controls.maxBookmarks.errors, 'is-valid': !studyForm.controls.maxBookmarks.errors }">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Minimum Snippets per Bookmark</label>
+                            <input type="number" class="form-control" formControlName="minSnippetsPerPage" [ngClass]="{ 'is-invalid': studyForm.controls.minSnippetsPerPage.errors, 'is-valid': !studyForm.controls.minSnippetsPerPage.errors }">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Maximum Snippets per Bookmark</label>
+                            <input type="number" class="form-control" formControlName="maxSnippetsPerPage" [ngClass]="{ 'is-invalid': studyForm.controls.maxSnippetsPerPage.errors, 'is-valid': !studyForm.controls.maxSnippetsPerPage.errors }">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Minimum Snippet Length (words)</label>
+                            <input type="number" class="form-control" formControlName="minSnippetWordLength" [ngClass]="{ 'is-invalid': studyForm.controls.minSnippetWordLength.errors, 'is-valid': !studyForm.controls.minSnippetWordLength.errors }">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Maximum Snippet Length (words)</label>
+                            <input type="number" class="form-control" formControlName="maxSnippetWordLength" [ngClass]="{ 'is-invalid': studyForm.controls.maxSnippetWordLength.errors, 'is-valid': !studyForm.controls.maxSnippetWordLength.errors }">
+                        </div>
+                    </div>
+                    <div class="form-row" *ngIf="advancedMode">
+                        <div class="form-group col-sm">
+                            <label for="">Global Time Limit (minutes)</label>
+                            <input type="number" class="form-control" formControlName="maxGlobalTime" [ngClass]="{ 'is-invalid': studyForm.controls.maxGlobalTime.errors, 'is-valid': !studyForm.controls.maxGlobalTime.errors }">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Snippet Truncate Threshold (words)</label>
+                            <input type="number" class="form-control" formControlName="snippetWordTruncateThreshold" [ngClass]="{ 'is-invalid': studyForm.controls.snippetWordTruncateThreshold.errors, 'is-valid': !studyForm.controls.snippetWordTruncateThreshold.errors }">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Synthesis Length (words)</label>
+                            <input type="number" class="form-control" formControlName="minSynthesisWordLength" [ngClass]="{ 'is-invalid': studyForm.controls.minSynthesisWordLength.errors, 'is-valid': !studyForm.controls.minSynthesisWordLength.errors }">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Synthesis Length (characters)</label>
+                            <input type="number" class="form-control" formControlName="minSynthesisCharLength" [ngClass]="{ 'is-invalid': studyForm.controls.minSynthesisCharLength.errors, 'is-valid': !studyForm.controls.minSynthesisCharLength.errors }">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Synthesis Autosave Interval (seconds)</label>
+                            <input type="number" class="form-control" formControlName="syhtesisAutosaveInterval" [ngClass]="{ 'is-invalid': studyForm.controls.syhtesisAutosaveInterval.errors, 'is-valid': !studyForm.controls.syhtesisAutosaveInterval.errors }">
+                        </div>
+                        <div class="form-group col">
+                            <label for="">Max Stars at Search Result</label>
+                            <input type="number" class="form-control" formControlName="maxStars" [ngClass]="{ 'is-invalid': studyForm.controls.maxStars.errors, 'is-valid': !studyForm.controls.maxStars.errors }">
+                        </div>
+                    </div>
+                    <div class="form-group col form-check" *ngIf="advancedMode">
+                        <input type="checkbox" class="form-check-input" id="replace" formControlName="replaceWithRelevantDocuments">
+                        <label for="replace" class="form-check-label">Replace Student Bookmarks with Relevant Documents</label>
+                    </div>
+
+                    <hr>
+                    <div *ngIf="stages.length == 0">
+                        <h3>Waiting for stages...</h3>
+                    </div>
+                    <div *ngIf="stages.length > 0">
+                        <h3>Stages</h3>
+                    </div>
+                    <div cdkDropList class="list-group" (cdkDropListDropped)="drop($event)">
+                        <div class="list-group-item list-group-item-action move-item row" *ngFor="let stage of stages" cdkDrag>
+                            <div class="col">
+
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{stage.id}}</h5>
+                                </div>
+                                <p class="mb-1">Type: {{stage.state}}</p>
+                                <small *ngIf="stage.time === -1">Time: Unlimited</small>
+                                <small *ngIf="stage.time != -1">Time: {{stage.time}} minutes</small>
+                            </div>
+                            <div class="col">
+                                <button mat-stroked-button color="primary" class="mr-2" type="button" (click)="editStage(stage)">Edit</button>
+                                <button mat-stroked-button color="warn" type="button" (click)="deleteStage(stage)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button mat-raised-button color="primary" class="float-right mt-3" *ngIf="!isEdit" type="submit" [ngClass]="{'disabled': !studyForm.valid}">SAVE</button>
+                    <button mat-raised-button color="primary" class="float-right mt-3 ml-1" *ngIf="isEdit" type="button" (click)="editStudy()" [ngClass]="{'disabled': !studyForm.valid}">SAVE</button>
+                    <button mat-button color="warn" class="float-right mt-3" *ngIf="isEdit" type="button" (click)="clearForm()">CANCEL</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+<h3>Your Study Flows</h3>
+<div class="text-center" *ngIf="myStudies.length == 0; else myStudiesList">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<ng-template #myStudiesList>
+    <div class="list-group mt-3">
+        <div class="list-group-item row" *ngFor="let study of myStudies">
+            <div class="col">
+
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{study.id}}</h5>
+                </div>
+                <b></b>
+                <p class="mb-1">Task: <b>{{study.task.name}}</b>. Domain: <b>{{study.domain.name}}</b>. Locale: <b>{{study.locale.name}}</b>. With <b>{{study.stages.length}} stages</b>.</p>
+            </div>
+            <div class="col">
+                <button type="button" mat-stroked-button color="primary" class="mr-3" (click)="loadStudy(study)">Edit</button>
+                <button mat-stroked-button color="warn" (click)="deleteStudy(study)">Delete</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

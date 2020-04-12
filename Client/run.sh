@@ -1,0 +1,1 @@
+docker run -d -it -p 40:4200 --name=kz frontstore npm start

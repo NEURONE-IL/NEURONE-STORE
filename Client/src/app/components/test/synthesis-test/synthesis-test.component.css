@@ -1,0 +1,12 @@
+.limit-tab {
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 300px;
+    max-width: 1000px;
+    padding-left: 20px;
+    padding-right: 50px;
+}
+
+.list-group-item {
+    max-width: 1000px;
+}

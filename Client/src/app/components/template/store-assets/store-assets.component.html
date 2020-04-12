@@ -1,0 +1,84 @@
+<p>Here you can search and <b>add</b> to your account <b>Assets</b> from other users.</p>
+<div class="row">
+    <div class="col">
+        <mat-button-toggle-group #group="matButtonToggleGroup">
+            <mat-button-toggle value="images">
+                Images
+            </mat-button-toggle>
+            <mat-button-toggle value="locales">
+                Language File
+            </mat-button-toggle>
+            <mat-button-toggle value="modals">
+                Modals
+            </mat-button-toggle>
+            <mat-button-toggle value="templates">
+                Templates
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <div class="col">
+        <button style="float: right" type="button" mat-stroked-button (click)="loadAssetsStore()">Refresh Store</button>
+    </div>
+</div>
+<input type="text" name="search" id="search" class="form-control mt-3" *ngIf="group.value" placeholder="Search asset by name..." (keyup)="searchAssetStore(searchStore.value)" #searchStore>
+<hr>
+<div class="limit-tab" *ngIf="group.value == 'images'">
+    <div class="ml-2 list-group-item row" *ngFor="let image of filterImages">
+        <div class="col">
+
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{image}}</h5>
+            </div>
+            <p class="mb-1"><b>Info...</b></p>
+        </div>
+        <div class="col">
+            <button mat-stroked-button color="primary" class="mr-1" (click)="previewAsset(image, 4)">Preview</button>
+            <button mat-raised-button color="primary" class="mr-1" (click)="addAssetStore(image, 4)">Add To Your Assets</button>
+        </div>
+    </div>
+</div>
+<div class="limit-tab" *ngIf="group.value == 'modals'">
+    <div class="ml-2 list-group-item row" *ngFor="let modal of filterModals">
+        <div class="col">
+
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{modal}}</h5>
+            </div>
+            <p class="mb-1"><b>Info...</b></p>
+        </div>
+        <div class="col">
+            <button mat-stroked-button color="primary" class="mr-1" (click)="previewAsset(modal, 2)">Preview</button>
+            <button mat-raised-button color="primary" class="mr-1" (click)="addAssetStore(modal, 2)">Add To Your Assets</button>
+        </div>
+    </div>
+</div>
+<div class="limit-tab" *ngIf="group.value == 'templates'">
+    <div class="ml-2 list-group-item row" *ngFor="let template of filterTemplates">
+        <div class="col">
+
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{template}}</h5>
+            </div>
+            <p class="mb-1"><b>Info...</b></p>
+        </div>
+        <div class="col">
+            <button mat-stroked-button color="primary" class="mr-1" (click)="previewAsset(template, 3)">Preview</button>
+            <button mat-raised-button color="primary" class="mr-1" (click)="addAssetStore(template, 3)">Add To Your Assets</button>
+        </div>
+    </div>
+</div>
+<div class="limit-tab" *ngIf="group.value == 'locales'">
+    <div class="ml-2 list-group-item row" *ngFor="let locale of filterLocales">
+        <div class="col">
+
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{locale}}</h5>
+            </div>
+            <p class="mb-1"><b>Info...</b></p>
+        </div>
+        <div class="col">
+            <button mat-stroked-button color="primary" class="mr-1" (click)="previewAsset(locale, 1)">Preview</button>
+            <button mat-raised-button color="primary" class="mr-1" (click)="addAssetStore(locale, 1)">Add To Your Assets</button>
+        </div>
+    </div>
+</div>

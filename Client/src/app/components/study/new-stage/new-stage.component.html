@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>New Stage</h2>
+<hr>
+<div mat-dialog-content>
+        <mat-form-field style="width: 300px;">
+            <mat-label>Select type of the stage</mat-label>
+            <mat-select [(value)]="selectedType">
+                <mat-option *ngFor="let type of typesStages" [value]="type" (click)="loadStageType()">
+                    {{type.type}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <hr>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="warn" class="mr-2" (click)="onNoClick()" cdkFocusInitial>CANCEL</button>
+</div>

@@ -1,0 +1,70 @@
+<h2>New {{data.typeName}} Stage</h2>
+<div>
+    <p>
+        In the <b>Synthesis Stage</b> students must write a brief summary about their assignment using a rich text box.
+    </p>
+</div>
+<hr>
+
+<div mat-dialog-content>
+    <form [formGroup]="synthesisForm">
+        <div class="form-row">
+            <div class="form-group col-8">
+                <label for="id">Id name of the stage</label>
+                <input type="text" class="form-control" name="id" placeholder="instructions-begin" formControlName="id" [ngClass]="{ 'is-invalid': synthesisForm.controls.id.errors, 'is-valid': !synthesisForm.controls.id.errors}">
+            </div>
+            <div class="form-group col-4">
+                <label for="time">Time limit (minutes)</label>
+                <input type="number" class="form-control" name="time" formControlName="time" [ngClass]="{'is-invalid': synthesisForm.controls.time.errors, 'is-valid': !synthesisForm.controls.time.errors}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="alert">Reminder alert (minutes)</label>
+                <input type="number" class="form-control" name="alert" formControlName="alert" [ngClass]="{ 'is-invalid': synthesisForm.controls.alert.errors, 'is-valid': !synthesisForm.controls.alert.errors}">
+            </div>
+            <div class="form-group col">
+                <label for="stage">URL Parameter</label>
+                <input type="text" class="form-control" name="stage" placeholder="instructions-begin" formControlName="stage" [ngClass]="{ 'is-invalid': synthesisForm.controls.stage.errors, 'is-valid': !synthesisForm.controls.stage.errors}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="">Tutorial Image Templates</label>
+                <mat-select formControlName="slides" [ngClass]="{ 'is-invalid': synthesisForm.controls.slides.errors, 'is-valid': !synthesisForm.controls.slides.errors }" class="form-control" multiple>
+                    <mat-option *ngFor="let image of images" [value]="image">{{image}}</mat-option>
+                </mat-select>
+            </div>
+            <div class="col-4 ml-2 mt-4">
+                <button type="button" class="btn btn-info btn-sm" (click)="newModal()">Upload Images</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="">Synthesis Form</label>
+                <select formControlName="form" class="form-control" [ngClass]="{ 'is-invalid': synthesisForm.controls.form.errors, 'is-valid': !synthesisForm.controls.form.errors }">
+                                <option *ngFor="let form of forms" [ngValue]="form._id">{{form.title}}</option>
+                            </select>
+            </div>
+            <div class="form-group col">
+                <label for="">Tips Modal Template</label>
+                <select formControlName="tips" class="form-control" [ngClass]="{ 'is-invalid': synthesisForm.controls.tips.errors, 'is-valid': !synthesisForm.controls.tips.errors }">
+                                <option *ngFor="let modal of modals" [ngValue]="modal">{{modal}}</option>
+                            </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-info btn-sm" (click)="newQuestionnaire()">New Synthesis Form</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-info btn-sm" (click)="newModal()">New Modal</button>
+            </div>
+        </div>
+    </form>
+</div>
+<hr>
+<div mat-dialog-actions align="end">
+    <button mat-button color="warn" class="btn btn-danger mr-2" (click)="onNoClick()" cdkFocusInitial>CANCEL</button>
+    <button mat-raised-button color="primary" (click)="save()" [ngClass]="{'disabled': !synthesisForm.valid}">SAVE</button>
+</div>

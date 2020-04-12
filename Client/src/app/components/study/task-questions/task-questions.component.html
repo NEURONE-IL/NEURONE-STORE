@@ -1,0 +1,53 @@
+<h2>New {{data.typeName}} Stage</h2>
+<div>
+    <p>In the <b>Task Questions Stage</b> students must answer a questionnaire (from Form Builder).</p>
+</div>
+<hr>
+
+<div mat-dialog-content>
+    <form [formGroup]="taskQuestionForm">
+        <div class="form-row">
+            <div class="form-group col-8">
+                <label for="id">Id name of the stage</label>
+                <input type="text" class="form-control" name="id" placeholder="instructions-begin" formControlName="id" [ngClass]="{ 'is-invalid': taskQuestionForm.controls.id.errors, 'is-valid': !taskQuestionForm.controls.id.errors}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-8">
+                <label for="stage">URL Parameter</label>
+                <input type="text" class="form-control" name="stage" placeholder="instructions-begin" formControlName="stage" [ngClass]="{ 'is-invalid': taskQuestionForm.controls.stage.errors, 'is-valid': !taskQuestionForm.controls.stage.errors}">
+            </div>
+            <div class="form-group col-4">
+                <label for="time">Time limit (minutes)</label>
+                <input type="number" class="form-control" name="time" formControlName="time" [ngClass]="{'is-invalid': taskQuestionForm.controls.time.errors, 'is-valid': !taskQuestionForm.controls.time.errors}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="">Questionnaire</label>
+                <select formControlName="questionnaire" class="form-control" [ngClass]="{ 'is-invalid': taskQuestionForm.controls.questionnaire.errors, 'is-valid': !taskQuestionForm.controls.questionnaire.errors }">
+                            <option *ngFor="let qs of questionnaires" [ngValue]="qs._id">{{qs.questionnaireId}}</option>
+                        </select>
+            </div>
+            <div class="form-group col">
+                <label for="">Avatar Image Template</label>
+                <select formControlName="avatarImage" class="form-control" [ngClass]="{ 'is-invalid': taskQuestionForm.controls.avatarImage.errors, 'is-valid': !taskQuestionForm.controls.avatarImage.errors }">
+                            <option *ngFor="let image of images" [ngValue]="image">{{image}}</option>
+                        </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-info btn-sm" (click)="newQuestionnaire()">New Questionnaire</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-info btn-sm" (click)="newImage()">Upload Image</button>
+            </div>
+        </div>
+    </form>
+</div>
+<hr>
+<div mat-dialog-actions align="end">
+    <button mat-button color="warn" class="mr-2" (click)="onNoClick()">CANCEL</button>
+    <button mat-raised-button color="primary" (click)="save()" [ngClass]="{'disabled': !taskQuestionForm.valid}">SAVE</button>
+</div>

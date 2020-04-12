@@ -1,0 +1,37 @@
+<h2>Created Questions</h2>
+<hr>
+
+<div mat-dialog-content>
+    <div class="text-center" *ngIf="myQuestions.length == 0; else questionsList">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <ng-template #questionsList>
+        <input class="form-control mr-2 mt-1" type="text" placeholder="Search question.." aria-label="Search" (keyup)="searchQuestion(search.value)" #search>
+        <hr>
+        <div class="limit-tab">
+            <div class="row">
+                <div class="col-11">
+                    <div class="ml-2 list-group-item list-group-item-action row" *ngFor="let created of questionFilter">
+                        <div class="col">
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{created.questionId}}</h5>
+                            </div>
+                            <button mat-stroked-button color="warn" style="float: right" (click)="deleteQuestion(created)">DELETE</button>
+                            <button mat-stroked-button color="primary" class="mr-2" style="float: right" (click)="editQuestion(created)">EDIT</button>
+                            <button mat-raised-button color="primary" class="mr-2" style="float: right" (click)="addQuestion(created)">ADD</button>
+                            <p class="mb-1">Type: {{created.type}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>
+
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-stroked-button color="warn" class="mr-2" (click)="onNoClick()" cdkFocusInitial>CLOSE</button>
+</div>

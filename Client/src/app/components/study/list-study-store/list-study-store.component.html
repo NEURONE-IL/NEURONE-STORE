@@ -1,0 +1,37 @@
+<h2>Questionnaires Store</h2>
+<hr>
+
+<div mat-dialog-content>
+    <div class="text-center" *ngIf="studies.length == 0; else studiesList">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <ng-template #studiesList>
+        <input class="form-control mr-2 mt-1" type="text" placeholder="Search questionnaire.." aria-label="Search" (keyup)="searchStudy(search.value)" #search>
+        <hr>
+        <div class="limit-tab">
+            <div class="row">
+                <div class="col-11">
+                    <div class="ml-2 list-group-item list-group-item-action row" *ngFor="let study of studiesFilter">
+                        <div class="col">
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{study.id}}</h5>
+                            </div>
+                            <button mat-raised-button color="primary" class="mr-2" style="float: right" (click)="addStudy(study)">Add To Your Content</button>
+                            <button mat-stroked-button color="primary" class="mr-2" style="float: right" (click)="viewStudyStore(study)">View Details</button>
+                            <p class="mb-1">Tags: {{study.tags}}</p>
+                            <small>{{study.stages.length}} stages</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>
+
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-stroked-button color="warn" class="mr-2" (click)="onNoClick()" cdkFocusInitial>CLOSE</button>
+</div>

@@ -1,0 +1,1 @@
+docker-compose -p neuronestore build

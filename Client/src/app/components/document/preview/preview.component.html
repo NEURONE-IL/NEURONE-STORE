@@ -1,0 +1,15 @@
+<h2>Document: {{data.docName}}</h2>
+<hr>
+
+<div class="text-center" *ngIf="data.route == null; else page">
+    <h4>Please wait...</h4>
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<ng-template #page>
+    <iframe class="iframe-child" [src]="data.route"></iframe>
+</ng-template>
+
+<hr>
+<button mat-button type="button" (click)="dialogRef.close()" style="float: right">Close</button>

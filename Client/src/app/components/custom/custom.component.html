@@ -1,0 +1,54 @@
+<div class="container fast fadeIn">
+    <div class="row">
+
+        <div class="col">
+            <h1>Content Builder <small>Custom</small></h1>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="card-deck" style="padding-left: 50px;">
+            <div class="card">
+                <img class="card-img-top" src="assets/img/template.png" alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h4 class="card-title">Manage your Assets</h4>
+                    <p class="card-text">Configure the views, images and modals of your template.</p>
+                    <button (click)="newTemplate()" class="btn btn-outline-light">Manage</button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="assets/img/upload.png" alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h4 class="card-title">Document Loader</h4>
+                    <p class="card-text">Load pages as documents for the simulations.</p>
+                    <button (click)="newDocument()" class="btn btn-outline-light">Manage</button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="assets/img/form.png" alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h4 class="card-title">Questionnaires</h4>
+                    <p class="card-text">Add questionnaires for the evaluation stage.</p>
+                    <button (click)="newTest()" class="btn btn-outline-light">Manage</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <img class="card-img-top" src="assets/img/flow.png" alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h4 class="card-title">Study Manager</h4>
+                    <p class="card-text">Allows the researcher to build Stages (activities for the study) and Study Flows (configured sequence of Stages).</p>
+                    <button (click)="newStudy()" class="btn btn-outline-light">Manage</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>

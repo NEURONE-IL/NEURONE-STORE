@@ -1,0 +1,177 @@
+<div class="row">
+    <div class="col">
+        <h1>Document Loader</h1>
+    </div>
+</div>
+<hr>
+
+
+<form class="needs-validation fast fadeIn" (ngSubmit)="onSubmit()" [formGroup]="documentForm">
+    <div class="form-group">
+        <label>Document URL</label>
+        <input type="url" formControlName="docURL" placeholder="http://www.web.com/important-url" pattern="https?://.+" class="form-control" [ngClass]="{ 'is-invalid': f.docURL.errors, 'is-valid': !f.docURL.errors }">
+        <div *ngIf="f.docURL.errors" class="invalid-feedback">
+            <div *ngIf="f.docURL.errors.required">URL is required</div>
+            <div *ngIf="f.docURL.errors.pattern">Not a Url. Example: http://www.example.com/test</div>
+        </div>
+    </div>
+    <div>
+        <div class="row">
+            <div class="form-group col">
+                <label class="">Document Name</label>
+                <div class="">
+
+                    <input class="form-control" type="text" placeholder="docname-01" formControlName="docName" [ngClass]="{ 'is-invalid': f.docName.errors, 'is-valid': !f.docName.errors }">
+                    <div *ngIf="f.docName.errors" class="invalid-feedback">
+                        <div *ngIf="f.docName.errors.required">Name is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col">
+                <label class="">Locale Code</label>
+                <div class="row">
+                    <div class="col">
+
+                        <select formControlName="localeCode" class="form-control" [ngClass]="{ 'is-invalid': f.localeCode.errors, 'is-valid': !f.localeCode.errors }">
+                            <option *ngIf="documentForm.value.localeCode" [ngValue]="documentForm.value.localeCode" selected>{{documentForm.value.localeCode}}</option>
+                            <option *ngFor="let locale of myLocales" [ngValue]="locale.code">{{locale.code}}</option>
+                        </select>
+                        <div *ngIf="f.localeCode.errors" class="invalid-feedback">
+                            <div *ngIf="f.localeCode.errors.required">Locale Code is required</div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <button type="button" mat-stroked-button color="primary" class="mr-2" (click)="addAsset(1)">NEW</button>
+                        <button type="button" mat-stroked-button  (click)="editAsset(1)">MANAGE</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label class="">Document Title</label>
+                <div class="">
+
+                    <input class="form-control" type="text" placeholder="The origin of humanity" formControlName="docTitle" [ngClass]="{ 'is-invalid': f.docTitle.errors, 'is-valid': !f.docTitle.errors }">
+                    <div *ngIf="f.docTitle.errors" class="invalid-feedback">
+                        <div *ngIf="f.docTitle.errors.required">Title is required</div>
+                        <div *ngIf="f.docTitle.errors.minlength">Length minimum is 6 characters</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col">
+                <label class="">Domain </label>
+                <div class="row">
+                    <div class="col">
+                        <!-- <mat-label>Select one or more</mat-label> -->
+                        <mat-select formControlName="domain" [ngClass]="{ 'is-invalid': f.domain.errors, 'is-valid': !f.domain.errors }" class="form-control" multiple>
+                            <!-- <mat-option value="cheese">Cheese</mat-option>
+                            <mat-option value="tomatoes">Tomatoes</mat-option>
+                            <mat-option value="mozarella">Mozzarella</mat-option>
+                            <mat-option value="mushrooms">Mushrooms</mat-option>
+                            <mat-option value="pepperoni">Pepperoni</mat-option>
+                            <mat-option value="onions">Onions</mat-option> -->
+                            <mat-option *ngFor="let dom of myDomains" [value]="dom.alias">{{dom.name}}</mat-option>
+                        </mat-select>
+                        <div *ngIf="f.domain.errors" class="invalid-feedback">
+                            <div *ngIf="f.domain.errors.required">Domain is required</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <button type="button" mat-stroked-button color="primary" class="mr-2" (click)="addAsset(2)">NEW</button>
+                        <button type="button" mat-stroked-button  (click)="editAsset(2)">MANAGE</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label class="">Masked URL</label>
+                <div class="">
+
+                    <input class="form-control" type="text" placeholder="www.test.cl/article1" name="correo" formControlName="maskedURL">
+                </div>
+            </div>
+            <div class="form-group col">
+                <label class="">Task </label>
+                <div class="row">
+                    <div class="col">
+                        <!-- <mat-label>Select one or more</mat-label> -->
+                        <mat-select formControlName="task" class="form-control" [ngClass]="{ 'is-invalid': f.task.errors, 'is-valid': !f.task.errors }" multiple>
+                            <!-- <mat-option value="cheese">Cheese</mat-option>
+                            <mat-option value="tomatoes">Tomatoes</mat-option>
+                            <mat-option value="mozarella">Mozzarella</mat-option>
+                            <mat-option value="mushrooms">Mushrooms</mat-option>
+                            <mat-option value="pepperoni">Pepperoni</mat-option> -->
+                            <mat-option *ngFor="let task of myTasks" [value]="task.alias">{{task.name}}</mat-option>
+                        </mat-select>
+                        <div *ngIf="f.task.errors" class="invalid-feedback">
+                            <div *ngIf="f.task.errors.required">Task is required</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <button type="button" mat-stroked-button color="primary" class="mr-2" (click)="addAsset(3)">NEW</button>
+                        <button type="button" mat-stroked-button (click)="editAsset(3)">MANAGE</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label class="">Search Snippet </label>
+                <div class="">
+
+                    <textarea rows="3" class="form-control" placeholder="This is a brief description of the contents of the website, shown as a fallback 'search snippet' in case NEURONE's search index cannot build one automatically." formControlName="searchSnippet"></textarea>
+                </div>
+            </div>
+            <div class="form-group col">
+                <label class="">Keywords </label>
+                <div class="row">
+                    <div class="col-6">
+
+                        <!-- <input class="form-control" type="text" placeholder=""> -->
+                        <tag-input formControlName='tags' [placeholder]="'Press Enter for new keyword'"></tag-input>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="required" formControlName="relevant">
+            <label for="required" class="form-check-label">Relevant Document</label>
+        </div>
+        <div class="form-group">
+            <div class="row">
+
+                <button mat-raised-button color="primary" class="mr-2" type="submit" *ngIf="!isEdit" [ngClass]="{'disabled': !documentForm.valid}">UPLOAD</button>
+                <button mat-raised-button color="primary" class="mr-2" *ngIf="isEdit" [ngClass]="{'disabled': !documentForm.valid}">SAVE</button>
+                <button mat-raised-button class="mr-2" [ngClass]="{'disabled': !documentForm.valid}" (click)="previewDoc()">PREVIEW</button>
+                <button mat-raised-button *ngIf="isEdit" (click)="clearEdit()">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<hr>
+<h3>Your Documents</h3>
+<div class="list-group mt-3 mb-3">
+    <div class="list-group-item row" *ngFor="let doc of myDocuments">
+        <div class="col">
+
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{doc.title}}</h5>
+            </div>
+            <b></b>
+            <p class="mb-1">URL <b>{{doc.url}}</b> | Document Name: {{doc.docName}}</p>
+        </div>
+        <div class="col">
+            <button type="button" mat-stroked-button color="primary" class="mr-2" (click)="editDoc(doc)">EDIT</button>
+            <button type="button" mat-stroked-button color="warn" (click)="deleteDoc(doc)">DELETE</button>
+        </div>
+    </div>
+</div>

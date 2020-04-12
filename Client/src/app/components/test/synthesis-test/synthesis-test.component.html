@@ -1,0 +1,54 @@
+<div class="row mt-3">
+    <div class="col">
+        <h3>Create Synthesis Question</h3>
+        <hr>
+        <form class="needs-validation fast fadeIn row" (ngSubmit)="submitSynthesis(editSynthId)" [formGroup]="synthesisForm">
+            <div class="col-4">
+                <div class="form-group">
+
+                    <label>Synthesis Id</label>
+                    <input type="text" formControlName="id" class="form-control" placeholder="synth-test-06" [ngClass]="{ 'is-invalid': synthesisForm.controls.id.errors }" />
+                    <div *ngIf="synthesisForm.controls.id.errors" class="invalid-feedback">
+                        <div *ngIf="synthesisForm.controls.id.errors.required">Name is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="form-group">
+
+                    <label>Synthesis Title</label>
+                    <input type="text" formControlName="title" class="form-control" placeholder="Resume your pages" [ngClass]="{ 'is-invalid': synthesisForm.controls.title.errors }" />
+                    <div *ngIf="synthesisForm.controls.title.errors" class="invalid-feedback">
+                        <div *ngIf="synthesisForm.controls.title.errors.required">Title is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col">
+                <button class="mr-2 float-right" mat-raised-button color="primary" *ngIf="!editSynthesis" [ngClass]="{'disabled': !synthesisForm.valid}">CREATE</button>
+                <button type="submit" mat-raised-button color="primary" class="float-right mr-2" *ngIf="editSynthesis" [ngClass]="{'disabled': !synthesisForm.valid}">SAVE</button>
+                <button type="button" mat-button color="warn" class="float-right mr-2" *ngIf="editSynthesis" (click)="cancelSynthesis()">CANCEL</button>
+            </div>
+        </form>
+        <hr>
+        <h3>Your Synthesis Questions</h3>
+        <div class="limit-tab">
+
+            <div class="list-group mt-3">
+                <div class="list-group-item row" *ngFor="let synthesis of synthesisDB">
+                    <div class="col">
+
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{synthesis.title}}</h5>
+                        </div>
+                        <p class="mb-1">{{synthesis.synthesisId}}</p>
+                    </div>
+                    <div class="col">
+                        <button mat-stroked-button color="primary" class="mr-3" (click)="loadSynthesis(synthesis)">Edit</button>
+                        <button mat-stroked-button color="warn" (click)="deleteSynthesis(synthesis)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

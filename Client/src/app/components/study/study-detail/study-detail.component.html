@@ -1,0 +1,56 @@
+<h2>{{data.id}}</h2>
+<p><b>Created by: </b>{{user.name}} <b>From: </b>{{user.institution}}</p>
+<p *ngIf="data.maxGlobalTime != -1"><b>Max. Global Time: </b>{{data.maxGlobalTime}} minutes</p>
+<p *ngIf="data.maxGlobalTime == -1"><b>Max. Global Time: </b>Unlimited</p>
+<p><b>Domain: </b> {{data.domain.name}}. <b>Taks: </b> {{data.task.name}}</p>
+<hr>
+<div class="row">
+
+    <div class="col-4">
+        <p>
+            <b>Min. Bookmarks: </b>{{data.minBookmarks}}
+            <br>
+            <b>Max. Bookmarks: </b>{{data.maxBookmarks}}
+            <br>
+            <b>Min. Snippet Word Length: </b>{{data.minSnippetWordLength}}
+            <br>
+            <b>Max. Snippet Word Length: </b>{{data.maxSnippetWordLength}}
+        </p>
+    </div>
+    <div class="col-4">
+        <p>
+            <b>Min. Snippet Per Page: </b>{{data.minSnippetsPerPage}}
+            <br>
+            <b>Max. Snippet Per Page: </b>{{data.maxSnippetsPerPage}}
+            <br>
+            <b>Min. Synthesis Word Length: </b>{{data.minSynthesisWordLength}}
+            <br>
+            <b>Min. Synthesis Char Length: </b>{{data.minSynthesisCharLength}}
+        </p>
+    </div>
+    <div class="col">
+        <p>
+            <b>Snippet Word Truncate: </b>{{data.snippetWordTruncateThreshold}}
+            <br>
+            <b>Synthesis Autosave: </b>{{data.syhtesisAutosaveInterval}}
+            <br>
+            <b>Max. Stars: </b>{{data.maxStars}}
+            <br>
+            <b>Replace Relevant Docs.: </b>{{data.replaceWithRelevantDocuments}}
+        </p>
+    </div>
+</div>
+<hr>
+<div class="limit-tab jumbotron">
+    <div class="ml-2 list-group-item row" *ngFor="let s of stages">
+        <div class="col">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{s.id}} - {{s.state}} stage</h5>
+                <small *ngIf="s.time == -1"><b>Time: </b>Unlimited</small>
+                <small *ngIf="s.time != -1"><b>Time: </b>{{s.time}} minutes</small>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<button mat-stroked-button style="float: right" (click)="dialogRef.close()">CLOSE</button>

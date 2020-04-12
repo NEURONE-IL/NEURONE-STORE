@@ -1,0 +1,69 @@
+<h1>
+    Register
+</h1>
+<hr>
+
+<form [formGroup]="registerForm" (ngSubmit)="register()" class="needs-validation fast fadeIn">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" name="email" placeholder="johnsmith@mail.com" formControlName="email" [ngClass]="{ 'is-invalid': registerForm.controls.email.errors, 'is-valid': !registerForm.controls.email.errors}">
+            <div *ngIf="registerForm.controls.email.errors" class="invalid-feedback">
+                <div *ngIf="registerForm.controls.email.errors.required">Email is required</div>
+                <div *ngIf="!registerForm.controls.email.errors.valid">Must be an email</div>
+            </div>
+            <div class="valid-feedback">
+                OK!
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" placeholder="John Smith" formControlName="name" [ngClass]="{ 'is-invalid': registerForm.controls.name.errors, 'is-valid': !registerForm.controls.name.errors}">
+            <div *ngIf="registerForm.controls.name.errors" class="invalid-feedback">
+                <div *ngIf="registerForm.controls.name.errors.required">Name is required</div>
+                <div *ngIf="registerForm.controls.name.errors.minlength">Name must have 3 characters</div>
+            </div>
+            <div class="valid-feedback">
+                OK!
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="institution">Institution</label>
+            <input type="text" class="form-control" name="institution" placeholder="University of America" formControlName="institution" [ngClass]="{ 'is-invalid': registerForm.controls.institution.errors, 'is-valid': !registerForm.controls.institution.errors}">
+            <div *ngIf="registerForm.controls.institution.errors" class="invalid-feedback">
+                <div *ngIf="registerForm.controls.institution.errors.required">Institution is required</div>
+                <div *ngIf="registerForm.controls.institution.errors.minlength">Institution must have 3 characters</div>
+            </div>
+            <div class="valid-feedback">
+                OK!
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-4 mb-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" formControlName="password" [ngClass]="{ 'is-invalid': registerForm.controls.password.errors, 'is-valid': !registerForm.controls.password.errors}">
+            <div *ngIf="registerForm.controls.password.errors" class="invalid-feedback">
+                <div *ngIf="registerForm.controls.password.errors.required">Password is required</div>
+                <div *ngIf="registerForm.controls.password.errors.minlength">Password must have 3 characters</div>
+            </div>
+            <div class="valid-feedback">
+                OK!
+            </div>
+        </div>
+        <div class="col-4 mb-3">
+            <label for="confirmPassword">Confirm your password</label>
+            <input type="password" class="form-control" name="confirmPassword" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': registerForm.controls.confirmPassword.errors,
+             'is-valid': !registerForm.controls.confirmPassword.errors}">
+            <div *ngIf="registerForm.controls.confirmPassword.errors" class="invalid-feedback">
+                <div *ngIf="registerForm.controls.confirmPassword.errors.required">Password is required</div>
+                <div *ngIf="registerForm.controls.confirmPassword.errors.mismatch">Password is no the same</div>
+            </div>
+            <div class="valid-feedback">
+                OK!
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-success float-right" [ngClass]="{'disabled': !registerForm.valid}">Register</button>
+</form>

@@ -1,0 +1,38 @@
+<h2>Please change the following fields to add it</h2>
+<hr>
+<label for="newName">Study title</label>
+<input class="form-control" type="text" id="newName" name="newName" [(ngModel)]="newStudyId" [ngClass]="{'is-invalid': newStudyId == data.id}" />
+<hr>
+<form [formGroup]="newStudyForm" (ngSubmit)="save()">
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">Flow Language (Locale File)</label>
+            <select formControlName="locale" class="form-control" [ngClass]="{ 'is-invalid': newStudyForm.controls.locale.errors, 'is-valid': !newStudyForm.controls.locale.errors }">
+                <option *ngFor="let local of data.locales" [ngValue]="local.code">{{local.name}} ({{local.code}})</option>
+            </select>
+        </div>
+        <div class="form-group col">
+            <label for="">Flow Domain</label>
+            <select formControlName="domain" class="form-control" [ngClass]="{ 'is-invalid': newStudyForm.controls.domain.errors, 'is-valid': !newStudyForm.controls.domain.errors }">
+                <option *ngFor="let domain of data.domains" [ngValue]="domain.name">{{domain.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="">Flow Task</label>
+            <select formControlName="task" class="form-control" [ngClass]="{ 'is-invalid': newStudyForm.controls.task.errors, 'is-valid': !newStudyForm.controls.task.errors }">
+                <option *ngFor="let tsk of data.tasks" [ngValue]="tsk.name">{{tsk.name}}</option>
+            </select>
+        </div>
+        <div class="form-group col">
+            <label for="">Flow Default Modal</label>
+            <select formControlName="taskPage" class="form-control" [ngClass]="{ 'is-invalid': newStudyForm.controls.taskPage.errors, 'is-valid': !newStudyForm.controls.taskPage.errors }">
+                <option *ngFor="let modal of data.modals" [ngValue]="modal">{{modal}}</option>
+            </select>
+        </div>
+    </div>
+    <hr>
+    <button mat-raised-button color="primary" type="submit" style="float: right" [ngClass]="{'disabled': !newStudyForm.valid}">ADD</button>
+    <button mat-button color="primary" class="mr-3" type="button" (click)="dialogRef.close()" style="float: right">CANCEL</button>
+</form>

@@ -1,0 +1,6 @@
+<h2>Please change the questionnaire title to add it</h2>
+<hr>
+<input class="form-control" type="text" id="newName" name="newName" [(ngModel)]="newQsId" [ngClass]="{'is-invalid': newQsId == data.questionnaireId}" />
+<hr>
+<button mat-raised-button color="primary" (click)="save()" style="float: right" [ngClass]="{'disabled': newQsId == data.questionnaireId}">ADD</button>
+<button mat-button color="warn" class="mr-3" (click)="dialogRef.close()" style="float: right">CANCEL</button>

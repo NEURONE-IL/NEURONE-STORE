@@ -1,0 +1,181 @@
+<div class="row">
+    <div class="col">
+        <h1>Assets Manager</h1>
+    </div>
+</div>
+<hr>
+<ul class="nav nav-tabs fast fadeIn">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#upload">Upload Your Assets</a>
+    </li>
+    <li class="nav-item">
+        <a href="#store" class="nav-link" data-toggle="tab">Assets Store</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#simple">Simple Template Builder</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#build">Code Your Template</a>
+    </li>
+</ul>
+<div class="tab-content fast fadeIn">
+    <div class="tab-pane container" id="store">
+        <app-store-assets></app-store-assets>
+    </div>
+    <div class="tab-pane container" id="simple">
+        <div class="row mt-3">
+            <div class="col-3">
+                <label for="fileName">Name your file</label>
+                <input name="fileName" placeholder="file-test01" type="text" #fileNameSimple class="form-control" />
+            </div>
+            <div class="col-3">
+                <label for="type">Select template type</label>
+                <select class="form-control" name="type" #htmlTypeSimple>
+                    <option value="1">Modal</option>
+                    <option value="2">Template</option>
+                </select>
+            </div>
+            <div class="col mt-4">
+                <input type="checkbox" id="publicFile" [(ngModel)]="publicSimple">
+                <label for="publicFile">Public File?</label>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <form [formGroup]="editorForm" (ngSubmit)="saveRichText()">
+                <div class="form-group">
+
+                    <quill-editor [styles]="{height: '250px'}" formControlName="editor"></quill-editor>
+                </div>
+
+                <button mat-raised-button color="primary" style="float: right">SAVE</button>
+                <button mat-button color="warn" type="button" style="float: right" (click)="clearRichText()">CLEAR</button>
+            </form>
+        </div>
+    </div>
+    <div class="tab-pane container" id="build">
+        <div class="mt-3">
+            <button mat-stroked-button color="primary" class="mr-2" (click)="showHtmlFiles(1)" *ngIf="!showHtml">{{htmlTextButton}} Your Modals</button>
+            <button mat-stroked-button color="primary" (click)="showHtmlFiles(2)" *ngIf="!showHtml">{{htmlTextButton}} Your Templates</button>
+            <button mat-stroked-button color="primary" (click)="showHtmlFiles(1)" *ngIf="showHtml">Hide Files</button>
+            <div class="mt-3 fadeIn" *ngIf="showHtml">
+                <div class="list-group">
+                    <div class="list-group-item list-group-item-action" *ngFor="let asset of assetsList">
+                        <div class="col">
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{asset}}</h5>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button mat-raised-button color="primary" *ngIf="assetType == 2 || assetType == 3" (click)="editHtml(asset)">Load</button>
+                            <!-- <button class="btn btn-info" *ngIf="assetType == 2" (click)="editHtml(asset)">Edit</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-3">
+                    <label for="fileName">Name your file</label>
+                    <input name="fileName" placeholder="file-test01" type="text" #fileNameCoded class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label for="type">Select template type</label>
+                    <select class="form-control" name="type" #htmlTypeCoded>
+                        <option value="1">Modal</option>
+                        <option value="2">Template</option>
+                    </select>
+                </div>
+                <div class="col mt-4">
+                    <input type="checkbox" id="publicCoded" [(ngModel)]="publicCoded">
+                    <label for="publicCoded">Public File?</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+
+                <ngx-codemirror #codeeditor [options]="{
+                                value: 'asd',
+                                lineNumbers: true,
+                                theme: 'material',
+                                mode: 'htmlmixed',
+                                autoCloseTags: true,
+                                autofocus: true,
+                                autoRefresh: true
+                              }" [autoFocus]=true (change)="show()"></ngx-codemirror>
+            </div>
+
+        </div>
+        <div class="mt-3">
+            <button mat-button (click)="exampleHtmlCode()">LOAD EXAMPLE</button>
+            <button mat-button (click)="show()">COMPILE</button>
+            <button mat-button color="warn" (click)="clearHtmlCoded()">CLEAR</button>
+            <button mat-raised-button color="primary" (click)="saveHtmlCoded()" style="float: right">SAVE</button>
+        </div>
+        <hr>
+        <h3>Result</h3>
+        <div class="jumbotron">
+            <div [innerHTML]="codedTemplate"></div>
+        </div>
+    </div>
+    <div class="tab-pane container active" id="upload">
+        <div class="row mt-3 card-deck">
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <!-- <img src="assets/img/fase1.PNG" alt=""> -->
+                    <h5 class="card-title">Language File</h5>
+                    <p class="card-text">File in JSON format that replace words during NEURONE execution.</p>
+                    <!-- <button class="btn btn-secondary btn-block" (click)="example(1)">Example</button> -->
+                    <button class="btn btn-secondary btn-block" (click)="example(1)">Example</button>
+                    <button class="btn btn-primary btn-block" (click)="uploadDialog(1)">Upload Locale</button>
+                    <button class="btn btn-info btn-block" (click)="fillAssetsList(1)">My Locales</button>
+                </div>
+            </div>
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Modal</h5>
+                    <p class="card-text">Modals are customizable pop-up content screens (inside the web browser) that can be used in some stages of the NEURONE study.</p>
+                    <button class="btn btn-secondary btn-block" (click)="example(2)">Example</button>
+                    <button class="btn btn-primary btn-block" (click)="uploadDialog(2)">Upload Modal</button>
+                    <button class="btn btn-info btn-block" (click)="fillAssetsList(2)">My Modals</button>
+                </div>
+            </div>
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Template</h5>
+                    <p class="card-text">HTML Templates are customizable content screens that can be used in some stages of the NEURONE study.</p>
+                    <button class="btn btn-secondary btn-block" (click)="example(3)">Example</button>
+                    <button class="btn btn-primary btn-block" (click)="uploadDialog(3)">Upload Template</button>
+                    <button class="btn btn-info btn-block" (click)="fillAssetsList(3)">My Templates</button>
+                </div>
+            </div>
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Image</h5>
+                    <p class="card-text">Images that can be used in some stages of the NEURONE study.</p>
+                    <button class="btn btn-primary btn-block" (click)="uploadDialog(4)">Upload Image</button>
+                    <button class="btn btn-info btn-block" (click)="fillAssetsList(4)">My Images</button>
+                </div>
+            </div>
+        </div>
+
+
+        <hr>
+
+        <div class="list-group row">
+            <div class="list-group-item list-group-item-action row" *ngFor="let asset of assetsList">
+                <div class="col">
+
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{asset}}</h5>
+                    </div>
+                </div>
+                <div class="col">
+                    <button mat-stroked-button color="primary" class="mr-3" (click)="downloadAsset(asset)">Download</button>
+                    <button mat-stroked-button color="primary" class="mr-3" (click)="previewAsset(asset, assetType)">Preview</button>
+                    <button mat-stroked-button color="warn" (click)="deleteAsset(asset)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

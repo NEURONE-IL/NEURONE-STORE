@@ -1,0 +1,94 @@
+<h1>Example {{title}}</h1>
+<div *ngIf="data == 1">
+  
+  <p>Below these instructions is a Locale example template for NEURONE (in JSON format). All string values must be translated to the target language for NEURONE use (string keys must not be translated). Save the locale templates as <i>locale-XX.json</i>, where <i>XX</i> is a language code (like <i>en</i> or <i>es-CL</i>). Words between double brackets (like <i>{{bookmarks}}</i>) must not be translated, because they are variables that are replaced during NEURONE execution.</p>
+  <hr>
+  <pre>
+    {{localeExample | json}}
+  </pre>
+
+</div>
+<div *ngIf="data == 2">
+    <div class="container-fluid">
+        <p>Below there is an example of a HTML Template for NEURONE. Modals are customizable pop-up content screens (inside the web browser) that can be used in some stages of the NEURONE study. These templates must be written in plain HTML and they can
+            contain Twitter Bootstrap styling, NEURONE translation strings and/or AngularJS controller logic.</p>
+        <p>NEURONE translation strings must be called inside the template as {{'{'}}{{'{'}} "mystring" | translate {{'}'}}{{'}'}}, where <b>mystring</b> is a key inside the NEURONE Translation JSON file.</p>
+        <p>AngularJS controller logic from NEURONE can be used referencing the <b>modal</b> scope object. As a convention, all data passed to the modal must be loaded through the <b>modal.fields</b> object.</p>
+        <hr>
+        <pre>
+    &lt;div class="container-fluid"&gt;
+      &lt;div class="row"&gt;
+        &lt;div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-2"&gt;
+          &lt;img src="images/avatars/{{'{'}}{{'{'}}modal.fields.avatar{{'}'}}{{'}'}}.png" class="img-responsive"&gt;
+        &lt;/div&gt;
+        &lt;div class="col-lg-4 col-md-4 col-sm-5 col-xs-5"&gt;
+          &lt;h2&gt;Hey! I need your help!&lt;/h2&gt;
+    
+          &lt;p&gt;We are making an article for our school newspaper and we need some help recovering information from our local network.&lt;/p&gt;
+    
+          &lt;p&gt;Don't worry, in the following step I will give you some advice for making this task.&lt;/p&gt;
+    
+          &lt;p&gt;Your help will be very appreciated.&lt;/p&gt;
+    
+          &lt;p&gt;Sarah Jones&lt;br&gt;
+          School Newspaper Chief Editor&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+        </pre>
+    </div>
+</div>
+<div *ngIf="data == 3">
+    <div class="container-fluid">
+        <div>
+            <p>Below there is an example of a HTML Template for NEURONE. HTML Templates are customizable content screens that can be used in some stages of the NEURONE study. These templates must be written in plain HTML and they can contain Twitter Bootstrap
+                styling, NEURONE translation strings and/or AngularJS controller logic.</p>
+            <p>NEURONE translation strings must be called inside the template as {{'{'}}{{'{'}} "mystring" | translate {{'}'}}{{'}'}}, where <b>mystring</b> is a key inside the NEURONE Translation JSON file.</p>
+            <p>AngularJS controller logic from NEURONE can be used referencing the following scope objects:</p>
+            <ul>
+                <li><b>tutorial</b> on Tutorial Stage</li>
+                <li><b>instructions</b> on Instruction Stage</li>
+                <li><b>affective</b> on Affective Stage (SAM)</li>
+                <li><b>taskQuestions</b> on Question Stage</li>
+            </ul>
+        </div>
+        <hr>
+        <pre>
+    &lt;div class="container"&gt;
+      &lt;div class="row"&gt;
+        &lt;div class="col-md-2 col-sm-2 col-xs-2"&gt;
+          &lt;b&gt;{{'{'}}{{'{'}}"tutorial.email.inbox" | translate{{'}'}}{{'}'}} (1)&lt;/b&gt;&lt;br&gt;
+          {{'{'}}{{'{'}}"tutorial.email.drafts" | translate{{'}'}}{{'}'}}&lt;br&gt;
+          {{'{'}}{{'{'}}"tutorial.email.sent" | translate{{'}'}}{{'}'}}&lt;br&gt;
+          {{'{'}}{{'{'}}"tutorial.email.allMail" | translate{{'}'}}{{'}'}}
+        &lt;/div&gt;
+        &lt;div class="col-md-10 col-sm-10 col-xs-10"&gt;
+          &lt;div class="row"&gt;
+            &lt;div class="col-md-2 col-sm-2 col-xs-2"&gt;
+              &lt;img src="images/avatars/{{'{'}}{{'{'}}instructions.avatar{{'}'}}{{'}'}}_portrait.png" class="img-circle img-responsive"&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-10 col-sm-10 col-xs-10"&gt;
+              &lt;b&gt;{{'{'}}{{'{'}}"tutorial.email.from" | translate{{'}'}}{{'}'}}:&lt;/b&gt; Sarah Jones &lt;sarah.jones@myemail.com&gt;&lt;br&gt;
+              &lt;b&gt;{{'{'}}{{'{'}}"tutorial.email.to" | translate{{'}'}}{{'}'}}:&lt;/b&gt; You&lt;br&gt;
+              &lt;b&gt;{{'{'}}{{'{'}}"tutorial.email.subject" | translate{{'}'}}{{'}'}}:&lt;/b&gt; Need help with our newspaper article! 
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;hr&gt;
+          &lt;div class="row"&gt;
+            &lt;h2&gt;Hey! I need your help!&lt;/h2&gt;
+              
+            &lt;p&gt;We are making an article for our school newspaper and we need some help recovering information from our local network.&lt;/p&gt;
+      
+            &lt;p&gt;Don't worry, in the following step I will give you some advice for making this task.&lt;/p&gt;
+      
+            &lt;p&gt;Your help will be very appreciated.&lt;/p&gt;
+      
+            &lt;p&gt;Sarah Jones&lt;br&gt;
+            School Newspaper Chief Editor&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+        </pre>
+    </div>
+</div>

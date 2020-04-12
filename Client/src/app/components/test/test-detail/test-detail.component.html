@@ -1,0 +1,34 @@
+<h2>{{data.questionnaireId}}</h2>
+<p><b>Created by: </b>{{user.name}} <b>From: </b>{{user.institution}}</p>
+<hr>
+<div class="row">
+    <div class="col">
+
+        <p><b>Instructions:</b> {{data.instructions}}</p>
+    </div>
+    <div class="col">
+        <p><b>Tags:</b> {{data.tags}}</p>
+
+    </div>
+</div>
+<hr>
+<div class="limit-tab jumbotron">
+    <div class="ml-2 list-group-item row" *ngFor="let q of questions">
+        <div class="col">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{q.title}} - {{q.type}} Question</h5>
+                <small *ngIf="q.required"><b>This question is required to answer</b></small>
+            </div>
+            <p><b>Hint: </b>{{q.hint}}</p>
+            <select class="custom-select" *ngIf="!!q.options">
+                <option selected>See question options</option>
+                <option *ngFor="let option of q.options">
+                    {{option}}
+                </option>
+            </select>
+            <small><b>Id Question: </b>{{q.questionId}}</small>
+        </div>
+    </div>
+</div>
+<hr>
+<button mat-raised-button style="float: right" (click)="dialogRef.close()">Close</button>

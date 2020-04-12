@@ -1,0 +1,16 @@
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.list-group-item {
+    max-width: 1000px;
+}
+
+.limit-tab {
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 400px;
+}

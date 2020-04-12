@@ -1,0 +1,275 @@
+<div class="row">
+    <div class="col">
+        <h1>Quick Builder</h1>
+    </div>
+</div>
+<hr>
+
+<mat-horizontal-stepper labelPosition="bottom" linear class="border bg-light animated fadeIn">
+    <mat-step [stepControl]="generalForm">
+        <form [formGroup]="generalForm">
+            <ng-template matStepLabel>General</ng-template>
+            <div class="row">
+                <div class="col">
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Title of your Study</mat-label>
+                        <input matInput placeholder="Testing-012" formControlName="id" required>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Avatar Name</mat-label>
+                        <input matInput placeholder="Sarah" formControlName="avatar" required>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-checkbox color="primary" formControlName="public">
+                        Public Content?
+                    </mat-checkbox>
+                </div>
+            </div>
+            <div class="row" *ngIf="generalForm.get('public').value">
+                <div class="form-group col">
+                    <tag-input formControlName='tags' [secondaryPlaceholder]="'Type a tag and press Enter'"></tag-input>
+                </div>
+            </div>
+            <div>
+                <button style="float: right;" mat-stroked-button color="primary" matStepperNext type="button">Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="assetsForm">
+        <form [formGroup]="assetsForm">
+            <ng-template matStepLabel>Resources</ng-template>
+            <div class="row">
+                <div class="col">
+                    <button type="button" mat-stroked-button color="primary" (click)="addAsset(1)">New Language</button>
+                    <button class="ml-3" type="button" mat-stroked-button (click)="editAsset(1)">Manage Languages</button>
+                </div>
+                <div class="col">
+                    <button type="button" mat-stroked-button color="primary" (click)="addAsset(2)">New Domain</button>
+                    <button class="ml-3" type="button" mat-stroked-button (click)="editAsset(2)">Manage Domains</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline" class="full-width mt-2">
+                        <mat-label>Language of the Study</mat-label>
+                        <mat-select formControlName="locale" required>
+                            <mat-option *ngFor="let local of myLocales" [value]="local.code">
+                                {{local.name}} ({{local.code}})
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline" class="full-width mt-2">
+                        <mat-label>Domain of the Study</mat-label>
+                        <mat-select formControlName="domain" required>
+                            <mat-option *ngFor="let domain of myDomains" [value]="domain.name">
+                                {{domain.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" mat-stroked-button color="primary" (click)="addAsset(3)">New Task</button>
+                    <button class="ml-3" type="button" mat-stroked-button (click)="editAsset(3)">Manage Tasks</button>
+                </div>
+                <div class="col">
+                    <button type="button" mat-stroked-button color="primary" (click)="uploadDialog(2)">Upload New Page</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline" class="full-width mt-2">
+                        <mat-label>Task of the Study</mat-label>
+                        <mat-select formControlName="task" required>
+                            <mat-option *ngFor="let tsk of myTasks" [value]="tsk.name">
+                                {{tsk.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline" class="full-width mt-2">
+                        <mat-label>Default page</mat-label>
+                        <mat-select formControlName="taskPage" required>
+                            <mat-option *ngFor="let modal of myModals" [value]="modal">
+                                {{modal}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="mt-5">
+                <button mat-stroked-button color="warn" matStepperPrevious>Previous</button>
+                <button style="float: right;" mat-stroked-button color="primary" matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Stages</ng-template>
+        <div class="row mt-1">
+            <div class="col">
+                <button class="mr-2" mat-stroked-button color="primary" (click)="activateNewStage()">Create Stage</button>
+                <button mat-stroked-button color="primary" (click)="createdStages()">My Stages</button>
+            </div>
+        </div>
+        <hr>
+        <div class="fast fadeIn" *ngIf="showNewStage">
+            <div class="row ml-2 mt-2">
+
+                <div class="mb-2" *ngFor="let type of typesStages; let i = index">
+                    <div>
+                        <div class="mr-1">
+                            <button class="d-flex justify-content-center" mat-stroked-button color="accent" (click)="newStage(type.type)"><i class="material-icons">add</i>{{type.type}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+        </div>
+        <div *ngIf="stages.length == 0">
+            <h3>Waiting for stages...</h3>
+        </div>
+        <div *ngIf="stages.length > 0">
+            <h3>Stages</h3>
+        </div>
+        <div class="row" style="max-height: 300px;overflow: auto;overflow-x: hidden;">
+            <div class="col-8 ml-2">
+                <div cdkDropList class="list-group" (cdkDropListDropped)="drop($event)">
+                    <div class="list-group-item list-group-item-action move-item row" *ngFor="let stage of stages" cdkDrag>
+                        <div class="col">
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{stage.id}}</h5>
+                            </div>
+                            <button mat-stroked-button color="warn" type="button" style="float: right;" (click)="deleteStage(stage)">Delete</button>
+                            <p class="mb-1">Type: {{stage.state}}</p>
+                            <small *ngIf="stage.time === -1">Time: Unlimited</small>
+                            <small *ngIf="stage.time != -1">Time: {{stage.time}} minutes</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="mt-5">
+            <button mat-stroked-button color="warn" matStepperPrevious>Previous</button>
+            <button style="float: right;" type="button" mat-stroked-button color="primary" matStepperNext [ngClass]="{'disabled': stages.length < 3}">Next</button>
+        </div>
+    </mat-step>
+    <mat-step [stepControl]="optionalForm">
+        <form [formGroup]="optionalForm">
+            <ng-template matStepLabel>Optional</ng-template>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Global Time Limit (minutes)</mat-label>
+                        <input matInput type="number" formControlName="maxGlobalTime" required>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Max Stars at Search Result</mat-label>
+                        <input matInput type="number" formControlName="maxStars" required>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Minimum Required Bookmarks</mat-label>
+                        <input matInput type="number" formControlName="minBookmarks" required>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Maximum Required Bookmarks</mat-label>
+                        <input matInput type="number" formControlName="maxBookmarks" required>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field style="width: 100%;" appearance="outline">
+                        <mat-label>Minimum Snippets per Bookmark</mat-label>
+                        <input matInput type="number" formControlName="minSnippetsPerPage" required>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field style="width: 100%;" appearance="outline">
+                        <mat-label>Maximum Snippets per Bookmark</mat-label>
+                        <input matInput type="number" formControlName="maxSnippetsPerPage" required>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field style="width: 100%;" appearance="outline">
+                        <mat-label>Minimum Snippet Length (words)</mat-label>
+                        <input matInput type="number" formControlName="minSnippetWordLength" required>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field style="width: 100%;" appearance="outline">
+                        <mat-label>Maximum Snippet Length (words)</mat-label>
+                        <input matInput type="number" formControlName="maxSnippetWordLength" required>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field style="width: 100%;" appearance="outline">
+                        <mat-label>Snippet Truncate Threshold (words)</mat-label>
+                        <input matInput type="number" formControlName="snippetWordTruncateThreshold" required>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Synthesis Length (words)</mat-label>
+                        <input matInput type="number" formControlName="minSynthesisWordLength" required>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Synthesis Length (characters)</mat-label>
+                        <input matInput type="number" formControlName="minSynthesisCharLength" required>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field style="width: 100%;" appearance="outline">
+                        <mat-label>Synthesis Autosave Interval (seconds)</mat-label>
+                        <input matInput type="number" formControlName="syhtesisAutosaveInterval" required>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+            <div class="mt-5">
+                <button mat-stroked-button color="warn" matStepperPrevious>Previous</button>
+                <button style="float: right;" mat-stroked-button color="primary" matStepperNext (click)="loadData()">Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Confirm Study</ng-template>
+        <h3>Please confirm</h3>
+        <hr>
+        <p>Are you sure to create the study <b>{{newStudy.id}}</b>. With Domain <b>{{newStudy.domain}}</b>, Task <b>{{newStudy.task}}</b> and {{newStudy.stages.length}} stages.</p>
+        <div>
+            <button mat-stroked-button color="warn" matStepperPrevious>Previous</button>
+            <button style="float: right;" mat-stroked-button color="primary" matStepperNext type="button" (click)="createStudy()">Confirm</button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>
