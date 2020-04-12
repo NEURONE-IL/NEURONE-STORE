@@ -1,6 +1,10 @@
-# PrototipoAngular7
+# NEURONE-STORE
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+The purpose of this project is to provide a modern graphical interface for users who wish to create studies and their derived content in order to execute it later in NEURONE.
+
+## Dependencies
+
+In root dirctory run `npm install` and `npm install -g @angular/cli`. The last command is for you to make use of the angular development tools.
 
 ## Development server
 
@@ -13,6 +17,12 @@ Run `ng generate component component-name` to generate a new component. You can 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Docker
+
+Please to run the next commands you need to install Docker. https://docs.docker.com/install/
+
+Run `bash build.sh` and `bash run.sh` in root directory to deploy in a docker instance this project.
 
 ## Running unit tests
 
