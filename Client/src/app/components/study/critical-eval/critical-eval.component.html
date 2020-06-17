@@ -36,7 +36,7 @@
                 </mat-select>
             </div>
             <div class="col-4 ml-2 mt-4">
-                <button type="button" class="btn btn-info btn-sm" (click)="newModal()">Upload Images</button>
+                <button type="button" mat-stroked-button class="btn-sm" (click)="uploadDialog(4)">Upload Images</button>
             </div>
         </div>
         <div class="form-row">
@@ -55,10 +55,11 @@
         </div>
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-info btn-sm" (click)="newQuestionnaire()">New Questionnaire</button>
+                <button type="button" mat-stroked-button class="btn-sm" (click)="newQuestionnaire()">New Questionnaire</button>
+                <button type="button" mat-stroked-button class="btn-sm ml-2" (click)="getMyQuestionnaires()">Refresh</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-info btn-sm" (click)="newModal()">New Modal</button>
+                <button type="button" mat-stroked-button class="btn-sm" (click)="uploadDialog(1)">New Modal</button>
             </div>
         </div>
     </form>

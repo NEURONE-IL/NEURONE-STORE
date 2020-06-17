@@ -21,6 +21,7 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 import { CreatedStagesComponent } from './created-stages/created-stages.component';
 import { StudyService } from 'src/app/services/study.service';
 import Swal from 'sweetalert2';
+import { SimpleEditorComponent } from '../template/simple-editor/simple-editor.component';
 
 
 
@@ -206,8 +207,8 @@ export class QuickComponent implements OnInit {
   }
 
   uploadDialog(type: number){
-    let dialogRef = this.dialog.open(UploadComponent, {
-      width: '600px',
+    let dialogRef = this.dialog.open(SimpleEditorComponent, {
+      width: '50%',
       data: type
     });
     dialogRef.afterClosed().subscribe(() => {

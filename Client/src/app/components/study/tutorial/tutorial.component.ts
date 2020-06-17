@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { UploadService } from 'src/app/services/upload.service';
 import { StagesService } from 'src/app/services/stages.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { UploadComponent } from '../../template/upload/upload.component';
 
 @Component({
   selector: 'app-tutorial',
@@ -18,7 +19,7 @@ export class TutorialComponent implements OnInit {
 
   constructor( private fb: FormBuilder, public dialogRef: MatDialogRef<TutorialComponent>,
     @Inject(MAT_DIALOG_DATA) public data, private uploadService: UploadService, private stageService: StagesService, 
-    private router: Router) { }
+    private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.tutorialForm = this.fb.group({
@@ -27,17 +28,31 @@ export class TutorialComponent implements OnInit {
       slides: ['', Validators.required],
       stage: ['', Validators.required]
     });
-    this.uploadService.getImages().subscribe(
-      res => {
-        this.images = res['images']        
-      }
-    );
+    this.getMyImages();
     if(this.data.isEdit){
       this.loadStage(this.data.stage);
       if(this.data.stage.user != localStorage.getItem('userId')){
         this.data.isEdit = false;
       }
     }
+  }
+
+  getMyImages(){
+    this.uploadService.getImages().subscribe(
+      res => {
+        this.images = res['images']        
+      }
+    );
+  }
+
+  uploadDialog(type: number){
+    let dialogRef = this.dialog.open(UploadComponent, {
+      width: '50%',
+      data: type
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getMyImages();
+    });
   }
 
   loadStage(stage){

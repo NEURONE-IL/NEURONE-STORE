@@ -61,6 +61,7 @@ import { CreatedQuestionsComponent } from './components/test/created-questions/c
 import { TestStoreComponent } from './components/test/test-store/test-store.component';
 import { NewStageComponent } from './components/study/new-stage/new-stage.component';
 import { ListStudyStoreComponent } from './components/study/list-study-store/list-study-store.component';
+import { SimpleEditorComponent } from './components/template/simple-editor/simple-editor.component';
 
 @NgModule({
   entryComponents: [
@@ -90,7 +91,8 @@ import { ListStudyStoreComponent } from './components/study/list-study-store/lis
     CreatedQuestionsComponent,
     TestStoreComponent,
     NewStageComponent,
-    ListStudyStoreComponent
+    ListStudyStoreComponent,
+    SimpleEditorComponent
   ],
   declarations: [
     AppComponent,
@@ -133,7 +135,8 @@ import { ListStudyStoreComponent } from './components/study/list-study-store/lis
     CreatedQuestionsComponent,
     TestStoreComponent,
     NewStageComponent,
-    ListStudyStoreComponent
+    ListStudyStoreComponent,
+    SimpleEditorComponent
   ],
   imports: [
     HttpClientModule, BrowserModule, AppRoutingModule, MatStepperModule, MatButtonModule, MatInputModule,

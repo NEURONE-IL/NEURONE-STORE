@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { UploadService } from 'src/app/services/upload.service';
 import { QuestionnairesService } from 'src/app/services/questionnaires.service';
 import { StagesService } from 'src/app/services/stages.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { UploadComponent } from '../../template/upload/upload.component';
 
 @Component({
   selector: 'app-task-questions',
@@ -17,10 +18,11 @@ export class TaskQuestionsComponent implements OnInit {
   taskQuestionForm: FormGroup;
   questionnaires: any = [];
   images: any = [];
+  window: Window;
 
   constructor( private fb: FormBuilder, public dialogRef: MatDialogRef<TaskQuestionsComponent>,
     @Inject(MAT_DIALOG_DATA) public data, private uploadService: UploadService, private qsService: QuestionnairesService, 
-    private stageService: StagesService, private router: Router) { }
+    private stageService: StagesService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.taskQuestionForm = this.fb.group({
@@ -30,22 +32,30 @@ export class TaskQuestionsComponent implements OnInit {
       questionnaire: ['', Validators.required],
       stage: ['', Validators.required]
     });
-    this.uploadService.getImages().subscribe(
-      res => {
-        this.images = res['images']        
-      }
-    );
-    this.qsService.getMyQuestionnaires().subscribe(
-      res => {
-        this.questionnaires = res['questionnaires']
-      }
-    );
+    this.getMyImages();
+    this.getMyQuestionnaires();
     if(this.data.isEdit){
       this.loadStage(this.data.stage);
       if(this.data.stage.user != localStorage.getItem('userId')){
         this.data.isEdit = false;
       }
     }
+  }
+
+  getMyQuestionnaires(){
+    this.qsService.getMyQuestionnaires().subscribe(
+      res => {
+        this.questionnaires = res['questionnaires']
+      }
+    );
+  }
+
+  getMyImages(){
+    this.uploadService.getImages().subscribe(
+      res => {
+        this.images = res['images']        
+      }
+    );
   }
 
   loadStage(stage){
@@ -105,13 +115,21 @@ export class TaskQuestionsComponent implements OnInit {
   }
 
   newQuestionnaire(){
-    this.router.navigate(['/test']);
-    this.dialogRef.close();
+    window.open(window.origin + '/#/test');
   }
 
-  newImage(){
-    this.router.navigate(['/template']);
-    this.dialogRef.close();
+  uploadDialog(type: number){
+    let dialogRef = this.dialog.open(UploadComponent, {
+      width: '50%',
+      data: type
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getMyImages();
+    });
   }
+  // newImage(){
+  //   this.router.navigate(['/template']);
+  //   this.dialogRef.close();
+  // }
 
 }

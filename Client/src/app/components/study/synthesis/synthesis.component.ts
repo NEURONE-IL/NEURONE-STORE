@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { UploadService } from 'src/app/services/upload.service';
 import { SynthesisService } from 'src/app/services/synthesis.service';
 import { StagesService } from 'src/app/services/stages.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { UploadComponent } from '../../template/upload/upload.component';
+import { SimpleEditorComponent } from '../../template/simple-editor/simple-editor.component';
 
 @Component({
   selector: 'app-synthesis',
@@ -18,10 +20,11 @@ export class SynthesisComponent implements OnInit {
   images: any = [];
   modals: any = [];
   forms: any = [];
+  window: Window;
 
   constructor( private fb: FormBuilder, public dialogRef: MatDialogRef<SynthesisComponent>,
     @Inject(MAT_DIALOG_DATA) public data, private uploadService: UploadService, private synthService: SynthesisService, 
-    private stageService: StagesService, private router: Router) { }
+    private stageService: StagesService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.synthesisForm = this.fb.group({
@@ -33,27 +36,56 @@ export class SynthesisComponent implements OnInit {
       slides: ['', Validators.required],
       stage: ['', Validators.required]
     });
-    this.uploadService.getHtml("1").subscribe(
-      res => {
-        this.modals = res['html'];
-      }
-    );
-    this.uploadService.getImages().subscribe(
-      res => {
-        this.images = res['images']
-      }
-    );
-    this.synthService.getMySynthesis().subscribe(
-      res => {
-        this.forms = res['synthesis']
-      }
-    );
+    this.getMyModals();
+    this.getMyImages();
+    this.getMyQuestionnaires();
     if(this.data.isEdit){
       this.loadStage(this.data.stage);
       if(this.data.stage.user != localStorage.getItem('userId')){
         this.data.isEdit = false;
       }
     }
+  }
+
+  getMyQuestionnaires(){
+    this.synthService.getMySynthesis().subscribe(
+      res => {
+        this.forms = res['synthesis']
+      }
+    );
+  }
+
+  getMyImages(){
+    this.uploadService.getImages().subscribe(
+      res => {
+        this.images = res['images']
+      }
+    );
+  }
+
+  getMyModals(){
+    this.uploadService.getHtml("1").subscribe(
+      res => {
+        this.modals = res['html'];
+      }
+    );
+  }
+
+  uploadDialog(type: number){
+    let component;
+    if(type === 4){
+      component = UploadComponent;
+    } else if(type === 1){
+      component = SimpleEditorComponent;
+    }
+    let dialogRef = this.dialog.open(component, {
+      width: '50%',
+      data: type
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getMyImages();
+      this.getMyModals();
+    });
   }
 
   loadStage(stage){
@@ -115,8 +147,7 @@ export class SynthesisComponent implements OnInit {
   }
 
   newQuestionnaire(){
-    this.router.navigate(['/test']);
-    this.dialogRef.close();
+    window.open(window.origin + '/#/test');
   }
 
   newModal(){

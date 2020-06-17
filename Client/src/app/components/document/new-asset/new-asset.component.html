@@ -16,20 +16,20 @@
                 <label for="name">Name</label>
                 <input *ngIf="data == 1" type="text" class="form-control" name="name" placeholder="American English" formControlName="name" [ngClass]="{ 'is-invalid': assetForm.controls.name.errors, 'is-valid': !assetForm.controls.name.errors}">
                 <input *ngIf="data == 2" type="text" class="form-control" name="name" placeholder="Social Science" formControlName="name" [ngClass]="{ 'is-invalid': assetForm.controls.name.errors, 'is-valid': !assetForm.controls.name.errors}">
-                <input *ngIf="data == 3" type="text" class="form-control" name="name" placeholder="Email" formControlName="name" [ngClass]="{ 'is-invalid': assetForm.controls.name.errors, 'is-valid': !assetForm.controls.name.errors}">
+                <input *ngIf="data == 3" type="text" class="form-control" name="name" placeholder="Task to do" formControlName="name" [ngClass]="{ 'is-invalid': assetForm.controls.name.errors, 'is-valid': !assetForm.controls.name.errors}">
             </div>
             <div class="form-group col-3">
                 <label for="alias">Alias</label>
                 <input *ngIf="data == 1" type="text" class="form-control" name="alias" placeholder="US" formControlName="alias" [ngClass]="{ 'is-invalid': assetForm.controls.alias.errors, 'is-valid': !assetForm.controls.alias.errors}">
                 <input *ngIf="data == 2" type="text" class="form-control" name="alias" placeholder="social" formControlName="alias" [ngClass]="{ 'is-invalid': assetForm.controls.alias.errors, 'is-valid': !assetForm.controls.alias.errors}">
-                <input *ngIf="data == 3" type="text" class="form-control" name="alias" placeholder="email" formControlName="alias" [ngClass]="{ 'is-invalid': assetForm.controls.alias.errors, 'is-valid': !assetForm.controls.alias.errors}">
+                <input *ngIf="data == 3" type="text" class="form-control" name="alias" placeholder="Task" formControlName="alias" [ngClass]="{ 'is-invalid': assetForm.controls.alias.errors, 'is-valid': !assetForm.controls.alias.errors}">
             </div>
             <div class="form-group col-3">
                 <label for="code" *ngIf="data != 1">User Code</label>
                 <label for="code" *ngIf="data == 1">Locale Code</label>
                 <input *ngIf="data == 1" type="text" class="form-control" name="code" placeholder="en-US" formControlName="code" [ngClass]="{ 'is-invalid': assetForm.controls.code.errors, 'is-valid': !assetForm.controls.code.errors}">
                 <input *ngIf="data == 2" type="text" class="form-control" name="code" placeholder="SS" formControlName="code" [ngClass]="{ 'is-invalid': assetForm.controls.code.errors, 'is-valid': !assetForm.controls.code.errors}">
-                <input *ngIf="data == 3" type="text" class="form-control" name="code" placeholder="E" formControlName="code" [ngClass]="{ 'is-invalid': assetForm.controls.code.errors, 'is-valid': !assetForm.controls.code.errors}">
+                <input *ngIf="data == 3" type="text" class="form-control" name="code" placeholder="Tsk" formControlName="code" [ngClass]="{ 'is-invalid': assetForm.controls.code.errors, 'is-valid': !assetForm.controls.code.errors}">
             </div>
         </div>
         <div class="form-group" *ngIf="needDescription">

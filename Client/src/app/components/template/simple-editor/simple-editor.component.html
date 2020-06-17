@@ -1,0 +1,26 @@
+<h1>Simple {{typeFile}} Builder</h1>
+<mat-dialog-content class="mt-2">
+  <div class="tab-pane container" id="simple">
+    <div class="row mt-3">
+        <div class="col">
+            <label for="fileName">Name your file</label>
+            <input name="fileName" placeholder="file-test01" type="text" #fileNameSimple class="form-control" />
+        </div>
+        <div class="col mt-4">
+            <input type="checkbox" id="publicFile" [(ngModel)]="publicSimple">
+            <label for="publicFile">Public File?</label>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <form [formGroup]="editorForm" (ngSubmit)="saveRichText()">
+            <div class="form-group">
+  
+                <quill-editor [styles]="{height: '250px'}" formControlName="editor"></quill-editor>
+            </div>
+            <button mat-raised-button color="primary" style="float: right">SAVE</button>
+            <button mat-button color="primary" type="button" style="float: right" (click)="clearRichText()">CLEAR</button>
+            <button mat-button color="warn" type="button" style="float: left" mat-dialog-close>CANCEL</button>
+        </form>
+    </div>
+  </div>
+</mat-dialog-content>

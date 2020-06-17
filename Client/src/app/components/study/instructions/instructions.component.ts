@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { UploadService } from 'src/app/services/upload.service';
 import { StagesService } from 'src/app/services/stages.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { SimpleEditorComponent } from '../../template/simple-editor/simple-editor.component';
 
 @Component({
   selector: 'app-instructions',
@@ -18,7 +19,7 @@ export class InstructionsComponent implements OnInit {
 
   constructor( private fb: FormBuilder, public dialogRef: MatDialogRef<InstructionsComponent>,
     @Inject(MAT_DIALOG_DATA) public data, private uploadService: UploadService, private stageService: StagesService,
-    private router: Router) { }
+    private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.instructionsForm = this.fb.group({
@@ -27,17 +28,31 @@ export class InstructionsComponent implements OnInit {
       page: ['', Validators.required],
       stage: ['', Validators.required]      
     });
-    this.uploadService.getHtml("2").subscribe(
-      res => {
-        this.templates = res['html']
-      }
-    );
+    this.getMyTemplates();
     if(this.data.isEdit){
       this.loadStage(this.data.stage);
       if(this.data.stage.user != localStorage.getItem('userId')){
         this.data.isEdit = false;
       }
     }
+  }
+  
+  getMyTemplates(){
+    this.uploadService.getHtml("2").subscribe(
+      res => {
+        this.templates = res['html']
+      }
+    );
+  }
+
+  uploadDialog(type: number){
+    let dialogRef = this.dialog.open(SimpleEditorComponent, {
+      width: '50%',
+      data: type
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getMyTemplates();
+    });
   }
 
   loadStage(stage){
