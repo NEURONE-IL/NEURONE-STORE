@@ -150,8 +150,8 @@
 
                 <button mat-raised-button color="primary" class="mr-2" type="submit" *ngIf="!isEdit" [ngClass]="{'disabled': !documentForm.valid}">UPLOAD</button>
                 <button mat-raised-button color="primary" class="mr-2" *ngIf="isEdit" [ngClass]="{'disabled': !documentForm.valid}">SAVE</button>
-                <button mat-raised-button class="mr-2" [ngClass]="{'disabled': !documentForm.valid}" (click)="previewDoc()">PREVIEW</button>
-                <button mat-raised-button *ngIf="isEdit" (click)="clearEdit()">CANCEL</button>
+                <button mat-raised-button type="button" class="mr-2" [ngClass]="{'disabled': !documentForm.valid}" (click)="previewDoc()">PREVIEW</button>
+                <button mat-raised-button type="button" *ngIf="isEdit" (click)="clearEdit()">CANCEL</button>
             </div>
         </div>
     </div>
