@@ -21,6 +21,7 @@
                             </div>
                             <button mat-stroked-button color="primary" class="mr-2" style="float: right" (click)="detailsQuestionnaire(created)">View Details</button>
                             <button mat-raised-button color="primary" class="mr-2" style="float: right" (click)="addQuestionnaire(created)">Add To Your Content</button>
+                            <p class="mb-1">Tags: {{created.tags}}</p>
                             <p class="mb-1">{{created.questions.length}} question(s)</p>
                         </div>
                     </div>

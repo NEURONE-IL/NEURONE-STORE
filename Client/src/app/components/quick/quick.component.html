@@ -59,7 +59,7 @@
                     <mat-form-field appearance="outline" class="full-width mt-2">
                         <mat-label>Language of the Study</mat-label>
                         <mat-select formControlName="locale" required>
-                            <mat-option *ngFor="let local of myLocales" [value]="local.code">
+                            <mat-option *ngFor="let local of myLocales" [value]="local">
                                 {{local.name}} ({{local.code}})
                             </mat-option>
                         </mat-select>
@@ -69,7 +69,7 @@
                     <mat-form-field appearance="outline" class="full-width mt-2">
                         <mat-label>Domain of the Study</mat-label>
                         <mat-select formControlName="domain" required>
-                            <mat-option *ngFor="let domain of myDomains" [value]="domain.name">
+                            <mat-option *ngFor="let domain of myDomains" [value]="domain">
                                 {{domain.name}}
                             </mat-option>
                         </mat-select>
@@ -90,7 +90,7 @@
                     <mat-form-field appearance="outline" class="full-width mt-2">
                         <mat-label>Task of the Study</mat-label>
                         <mat-select formControlName="task" required>
-                            <mat-option *ngFor="let tsk of myTasks" [value]="tsk.name">
+                            <mat-option *ngFor="let tsk of myTasks" [value]="tsk">
                                 {{tsk.name}}
                             </mat-option>
                         </mat-select>
@@ -266,7 +266,7 @@
         <ng-template matStepLabel>Confirm Study</ng-template>
         <h3>Please confirm</h3>
         <hr>
-        <p>Are you sure to create the study <b>{{newStudy.id}}</b>. With Domain <b>{{newStudy.domain}}</b>, Task <b>{{newStudy.task}}</b> and {{newStudy.stages.length}} stages.</p>
+        <p>Are you sure to create the study <b>{{newStudy.id}}</b>. With Domain <b>{{newStudy.domain ? newStudy.domain.name : ''}}</b>, Task <b>{{newStudy.task ? newStudy.task.name : ''}}</b> and {{newStudy.stages.length}} stages.</p>
         <div>
             <button mat-stroked-button color="warn" matStepperPrevious>Previous</button>
             <button style="float: right;" mat-stroked-button color="primary" matStepperNext type="button" (click)="createStudy()">Confirm</button>

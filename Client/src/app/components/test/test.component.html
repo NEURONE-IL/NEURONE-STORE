@@ -45,7 +45,7 @@
 
                                 <div class="form-group col-8">
 
-                                    <label><b>Instructions</b></label>
+                                    <label><b>Instructions</b>(Required)</label>
                                     <textarea type="text" formControlName="instructions" class="form-control" placeholder="You have 30 minutes"></textarea>
                                     <div *ngIf="questionnaireForm.controls.instructions.errors" class="invalid-feedback">
                                         <div *ngIf="questionnaireForm.controls.instructions.errors.required">Instructions are required</div>

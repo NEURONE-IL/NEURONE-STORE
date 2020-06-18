@@ -65,7 +65,7 @@
                             <input type="text" class="form-control" name="avatar" placeholder="Sarah" formControlName="avatar" [ngClass]="{ 'is-invalid': studyForm.controls.avatar.errors, 'is-valid': !studyForm.controls.avatar.errors}">
                         </div>
                         <div class="form-group col">
-                            <label for="">Flow Language (Locale File)</label>
+                            <label for="">Flow Language</label>
                             <select formControlName="locale" class="form-control" [ngClass]="{ 'is-invalid': studyForm.controls.locale.errors, 'is-valid': !studyForm.controls.locale.errors }">
                                 <option value="" disabled>Choose a language</option>
                                 <option *ngFor="let local of myLocales" [ngValue]="local">{{local.name}} ({{local.code}})</option>
@@ -91,6 +91,22 @@
                                 <option value="" disabled>Choose a modal</option>
                                 <option *ngFor="let modal of myModals" [ngValue]="modal">{{modal}}</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                        </div>
+                        <div class="form-group col">
+                            <button type="button" mat-stroked-button color="primary" (click)="addAsset(1)">New Language</button>
+                        </div>
+                        <div class="form-group col">
+                            <button type="button" mat-stroked-button color="primary" (click)="addAsset(2)">New Domain</button>
+                        </div>
+                        <div class="form-group col">
+                            <button type="button" mat-stroked-button color="primary" (click)="addAsset(3)">New Task</button>
+                        </div>
+                        <div class="form-group col">
+                            <button type="button" mat-stroked-button color="primary" (click)="uploadDialog(1)">Create Modal</button>
                         </div>
                     </div>
                     <div class="form-row" *ngIf="advancedMode">

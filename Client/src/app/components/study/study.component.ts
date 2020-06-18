@@ -29,6 +29,8 @@ import { AddStudyStoreComponent } from './add-study-store/add-study-store.compon
 import { NewStageComponent } from './new-stage/new-stage.component';
 import { CreatedStagesComponent } from '../quick/created-stages/created-stages.component';
 import { ListStudyStoreComponent } from './list-study-store/list-study-store.component';
+import { NewAssetComponent } from '../document/new-asset/new-asset.component';
+import { SimpleEditorComponent } from '../template/simple-editor/simple-editor.component';
 
 @Component({
   selector: 'app-study',
@@ -216,6 +218,21 @@ export class StudyComponent implements OnInit {
   clearForm(){
     this.studyForm.reset();
     this.isEdit = false;
+    
+    this.studyForm.patchValue({
+      maxGlobalTime: -1,
+      minBookmarks: 3,
+      maxBookmarks: 3,
+      minSnippetsPerPage: 2,
+      maxSnippetsPerPage: 2,
+      minSnippetWordLength: 5,
+      maxSnippetWordLength: 20,
+      snippetWordTruncateThreshold: 20,
+      minSynthesisWordLength: 50,
+      minSynthesisCharLength: 425,
+      syhtesisAutosaveInterval: 30,
+      maxStars: 3,
+    });
     this.stages = [];
     this.studyForm.controls['id'].setValue('New Study Title');
     while (this.getStagesForm.length > 0){
@@ -261,6 +278,39 @@ export class StudyComponent implements OnInit {
           this.deleteStageDB(result);
         } else {
           this.addStageDB(result);
+        }
+      }
+    });
+  }
+
+
+  uploadDialog(type: number){
+    let dialogRef = this.dialog.open(SimpleEditorComponent, {
+      width: '50%',
+      data: type
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getMyModals();
+    });
+  }
+  
+  addAsset(type: number){
+    const dialogRef = this.dialog.open(NewAssetComponent, {
+      width: '600px',
+      data: type
+    });
+    dialogRef.afterClosed().subscribe(newAsset => {
+      if(newAsset){
+        switch(type){
+          case 1: 
+            this.getMyLocales();
+            break;
+          case 2:
+            this.getMyDomains();
+            break;
+          case 3:
+            this.getMyTasks();
+            break;
         }
       }
     });

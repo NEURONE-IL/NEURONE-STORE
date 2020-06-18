@@ -352,7 +352,7 @@ export class TestComponent implements OnInit {
           Swal.fire({
             type: 'error',
             title: 'Oops...',
-            text: err
+            text: 'Name of your questionnaire already exists!'
           });
           //console.log(err);
         }

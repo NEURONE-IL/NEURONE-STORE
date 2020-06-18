@@ -38,7 +38,11 @@ export class TestStoreComponent implements OnInit {
   }
 
   searchQuestionnaire(name: string){
-    this.questionnaireFilter = this.storeQuestionnaires.filter(obj => obj.questionId.includes(name));
+    if(name == ''){
+      this.questionnaireFilter = this.storeQuestionnaires;
+      return;
+    }
+    this.questionnaireFilter = this.storeQuestionnaires.filter(obj => obj.tags.includes(name));
   }
 
   onNoClick(): void {
