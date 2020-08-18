@@ -10,7 +10,7 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
 //npm packages
 import { MatStepperModule, MatButtonModule, MatFormFieldModule, MatInputModule, 
   MatDialogModule, MatSelectModule, MatOptionModule, MatProgressBarModule, MatListModule, MatCheckboxModule,
-  MatButtonToggleModule} from '@angular/material';
+  MatButtonToggleModule, MatTooltipModule} from '@angular/material';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -143,7 +143,7 @@ import { SimpleEditorComponent } from './components/template/simple-editor/simpl
     MatFormFieldModule,MatProgressBarModule,MatListModule,BrowserAnimationsModule,
     FormsModule,ReactiveFormsModule,NgbModalModule,MatDialogModule, DragDropModule,
     MatSelectModule, MatOptionModule,CodemirrorModule,QuillModule,TagInputModule,
-    MatCheckboxModule,MatButtonToggleModule
+    MatCheckboxModule,MatButtonToggleModule, MatTooltipModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
